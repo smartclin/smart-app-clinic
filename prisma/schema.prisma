@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
-  moduleFormat = "esm"
+  provider        = "prisma-client-js"
+  moduleFormat    = "esm"
   previewFeatures = ["relationJoins", "views"]
 }
 
@@ -10,15 +10,14 @@ datasource db {
   // directUrl = env("DIRECT_URL")
 }
 
-
 model User {
-  id            String    @id @map("_id")
+  id            String    @id @default(uuid()) @map("_id")
   name          String
   email         String
   emailVerified Boolean
   image         String?
-  createdAt     DateTime
-  updatedAt     DateTime
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
 
@@ -35,17 +34,17 @@ model User {
   twoFactorEnabled Boolean?
   password         String?
   twofactors       TwoFactor[]
+  Clinic           Clinic[]
+  ClinicMember     ClinicMember[]
 
   @@unique([email])
-  @@map("user")
   @@unique([username])
-  Clinic Clinic[]
-  ClinicMember ClinicMember[]
+  @@map("user")
 }
 
 model Clinic {
   id          String  @id @default(uuid())
-  name        String    @unique
+  name        String  @unique
   description String?
   address     String?
   phone       String?
@@ -98,8 +97,8 @@ model Session {
   id        String   @id @map("_id")
   expiresAt DateTime
   token     String
-  createdAt DateTime
-  updatedAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   ipAddress String?
   userAgent String?
   userId    String
@@ -112,7 +111,7 @@ model Session {
 }
 
 model Account {
-  id                    String    @id @map("_id")
+  id                    String    @id @default(uuid()) @map("_id")
   accountId             String
   providerId            String
   userId                String
@@ -124,14 +123,14 @@ model Account {
   refreshTokenExpiresAt DateTime?
   scope                 String?
   password              String?
-  createdAt             DateTime
-  updatedAt             DateTime
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
 
   @@map("account")
 }
 
 model Verification {
-  id         String    @id @map("_id")
+  id         String    @id @default(uuid()) @map("_id")
   identifier String
   value      String
   expiresAt  DateTime
@@ -150,8 +149,9 @@ model TwoFactor {
 
   @@map("twoFactor")
 }
+
 model Patient {
-  id                     String           @id //clerk userId
+  id                     String           @id @default(uuid())
   firstName              String
   lastName               String
   userId                 String           @unique
@@ -169,7 +169,7 @@ model Patient {
   allergies              String?
   medicalConditions      String?
   medicalHistory         String?
- image         String?
+  image                  String?
   colorCode              String?
   role                   Role?
   appointments           Appointment[]
@@ -184,13 +184,13 @@ model Patient {
   updatedAt              DateTime         @updatedAt
 
   Prescription Prescription[]
+  Clinic       Clinic[]
 
   @@index([lastName])
-  Clinic Clinic[]
 }
 
 model Doctor {
-  id     String @id
+  id     String @id @default(uuid())
   email  String @unique
   name   String
   userId String @unique
@@ -238,7 +238,7 @@ model WorkingDays {
 }
 
 model Staff {
-  id     String @id
+  id     String @id @default(uuid())
   email  String @unique
   name   String
   phone  String
@@ -263,11 +263,11 @@ model Staff {
 }
 
 model Appointment {
-  id        Int    @id @default(autoincrement())
-  patientId String
-  doctorId  String
-  serviceId Int?
-  syntheticKey  String   @unique
+  id              Int                @id @default(autoincrement())
+  patientId       String
+  doctorId        String
+  serviceId       Int?
+  syntheticKey    String             @unique
   appointmentDate DateTime
   time            String
   status          AppointmentStatus? @default(PENDING)
@@ -283,8 +283,9 @@ model Appointment {
   createdAt       DateTime           @default(now())
   updatedAt       DateTime           @updatedAt
   Billing         Billing[]
+  Clinic          Clinic[]
+
   @@index([patientId, appointmentDate])
-  Clinic Clinic[]
 }
 
 model Payment {
@@ -312,7 +313,7 @@ model Payment {
 
 model Reminder {
   id            String         @id @default(cuid())
-  appointmentId Int     @unique
+  appointmentId Int            @unique
   appointment   Appointment    @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
   method        ReminderMethod
   sentAt        DateTime
@@ -336,7 +337,7 @@ model PatientBills {
 
 model LabTest {
   id        Int       @id @default(autoincrement())
-  recordId  Int   @unique
+  recordId  Int       @unique
   testDate  DateTime
   result    String
   status    String
@@ -353,7 +354,7 @@ model LabTest {
 model MedicalRecords {
   id            Int     @id @default(autoincrement())
   patientId     String
-  appointmentId Int   @unique
+  appointmentId Int     @unique
   doctorId      String
   treatmentPlan String?
   prescriptions String?
@@ -386,7 +387,7 @@ model Encounter {
   diagnosis String?
   treatment String?
   notes     String?
-  medicalId Int     @unique
+  medicalId Int            @unique
   medical   MedicalRecords @relation(fields: [medicalId], references: [id], onDelete: Cascade)
 
   // Relations
@@ -400,10 +401,10 @@ model Encounter {
 
 model VitalSigns {
   id          String         @id @default(cuid())
-  encounterId String?     @unique
+  encounterId String?        @unique
   encounter   Encounter?     @relation(fields: [encounterId], references: [id], onDelete: Cascade)
   patientId   String
-  medicalId   Int     @unique
+  medicalId   Int            @unique
   medical     MedicalRecords @relation(fields: [medicalId], references: [id], onDelete: Cascade)
 
   height           Float? // in cm
@@ -470,7 +471,7 @@ model Billing {
   id            String        @id @default(cuid())
   patientId     String
   patient       Patient       @relation(fields: [patientId], references: [id], onDelete: Cascade)
-  appointmentId Int?      @unique
+  appointmentId Int?          @unique
   appointment   Appointment?  @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
   amount        Float
   status        BillingStatus @default(PENDING)
@@ -500,7 +501,7 @@ model Notification {
 model Diagnosis {
   id                    Int     @id @default(autoincrement())
   patientId             String
-  medicalId             Int   @unique
+  medicalId             Int     @unique
   doctorId              String
   doctor                Doctor  @relation(fields: [doctorId], references: [id])
   symptoms              String
@@ -535,20 +536,20 @@ model Services {
 }
 
 model Prescription {
-  id              Int     @id @default(autoincrement())
-  medicalRecordId Int     @map("medical_record_id") @unique
+  id              Int       @id @default(autoincrement())
+  medicalRecordId Int       @unique @map("medical_record_id")
   doctorId        String? // Doctor who issued the prescription (optional if already linked via medicalRecord.doctor)
   patientId       String // Patient the prescription is for (redundant if linked via medicalRecord.patient, but ensures direct access)
-  enconterId    String     @unique
-  enconter      Encounter   @relation(fields: [enconterId], references: [id])
-  medicationName String    @map("medication_name")
-  dosage         String    @map("dosage") // e.g., "250mg", "1 tablet"
-  frequency      String    @map("frequency") // e.g., "Once a day", "Every 4 hours"
-  duration       String    @map("duration") // e.g., "7 days", "Until finished"
-  instructions   String?   @map("instructions") @db.Text // Special instructions
-  issuedDate     DateTime  @default(now()) @map("issued_date") @db.Timestamp(3)
-  endDate        DateTime? @map("end_date") @db.Timestamp(3) // When the prescription is valid until
-  status         String    @default("active") // e.g., "active", "completed", "cancelled" - consider an enum
+  enconterId      String    @unique
+  enconter        Encounter @relation(fields: [enconterId], references: [id])
+  medicationName  String    @map("medication_name")
+  dosage          String    @map("dosage") // e.g., "250mg", "1 tablet"
+  frequency       String    @map("frequency") // e.g., "Once a day", "Every 4 hours"
+  duration        String    @map("duration") // e.g., "7 days", "Until finished"
+  instructions    String?   @map("instructions") @db.Text // Special instructions
+  issuedDate      DateTime  @default(now()) @map("issued_date") @db.Timestamp(3)
+  endDate         DateTime? @map("end_date") @db.Timestamp(3) // When the prescription is valid until
+  status          String    @default("active") // e.g., "active", "completed", "cancelled" - consider an enum
 
   // Relations
   medicalRecord MedicalRecords @relation(fields: [medicalRecordId], references: [id], onDelete: Cascade)

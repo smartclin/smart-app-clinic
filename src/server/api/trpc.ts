@@ -8,11 +8,12 @@ import { db } from '@/server/db';
 
 import { auth } from '../auth';
 
-export const createTRPCContext = cache(async () => {
+export const createTRPCContext = cache(async (opts?: { headers?: Headers }) => {
     /**
      * @see: https://trpc.io/docs/server/context
      */
-    const session = await auth.api.getSession({ headers: await headers() });
+    const headersList = opts?.headers ?? (await headers());
+    const session = await auth.api.getSession({ headers: headersList });
 
     return {
         db,
