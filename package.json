@@ -144,6 +144,7 @@
         "db:migrate": "prisma migrate dev",
         "db:push": "prisma db push",
         "db:reset": " prisma migrate reset --force --skip-seed",
+        "db:seed": "prisma db seed",
         "db:studio": "prisma studio",
         "dev": "next dev --turbopack",
         "format": "biome format --write",

@@ -361,6 +361,7 @@ async function createDoctors(doctorUsers: User[], _clinics: Clinic[]) {
         // Make sure required fields are populated (like specialization and user)
         const doctorData: DoctorUser = {
             id: user.id ?? faker.string.uuid(),
+            userId: user.id,
             email: user.email ?? faker.internet.email(),
             name: user.name ?? faker.person.fullName(),
             specialization: faker.helpers.arrayElement(specializations),
@@ -372,12 +373,7 @@ async function createDoctors(doctorUsers: User[], _clinics: Clinic[]) {
             colorCode: faker.color.rgb(),
             availabilityStatus: faker.helpers.arrayElement(['Available', 'Busy', 'On Leave']),
             type: faker.helpers.arrayElement(['FULL', 'PART']),
-            role: 'DOCTOR' as const, // Fix role type
-            user: {
-                create: undefined,
-                connectOrCreate: undefined,
-                connect: undefined
-            }
+            role: 'DOCTOR' as const // Fix role type
         };
 
         // Create the doctor using the correct data
