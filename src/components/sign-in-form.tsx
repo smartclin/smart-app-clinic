@@ -1,3 +1,5 @@
+'use client'; // 👈 FIX: This file must be a Client Component
+
 import { useForm } from '@tanstack/react-form';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
@@ -10,7 +12,8 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 
-export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () => void }) {
+// FIX 1: Correctly destructure and type the props object
+export default function SignInForm({ onSwitchToSignUpAction }: { onSwitchToSignUpAction: () => void }) {
     const router = useRouter();
     const { isPending } = authClient.useSession();
 
@@ -38,7 +41,7 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
         },
         validators: {
             onSubmit: z.object({
-                email: z.email('Invalid email address'),
+                email: z.string().email('Invalid email address'),
                 password: z.string().min(8, 'Password must be at least 8 characters')
             })
         }
@@ -60,6 +63,7 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
                     form.handleSubmit();
                 }}
             >
+                {/* ... (Email field - no changes) ... */}
                 <div>
                     <form.Field name='email'>
                         {field => (
@@ -86,6 +90,7 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
                     </form.Field>
                 </div>
 
+                {/* ... (Password field - no changes) ... */}
                 <div>
                     <form.Field name='password'>
                         {field => (
@@ -112,6 +117,7 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
                     </form.Field>
                 </div>
 
+                {/* ... (Submit button - no changes) ... */}
                 <form.Subscribe>
                     {state => (
                         <Button
@@ -126,9 +132,10 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
             </form>
 
             <div className='mt-4 text-center'>
+                {/* FIX 2: Update onClick to use the new prop name 'onSwitchToSignUpAction' */}
                 <Button
                     className='text-indigo-600 hover:text-indigo-800'
-                    onClick={onSwitchToSignUp}
+                    onClick={onSwitchToSignUpAction}
                     variant='link'
                 >
                     Need an account? Sign Up

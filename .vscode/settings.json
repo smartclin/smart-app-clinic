@@ -209,7 +209,7 @@
     // ================================
     "workbench.colorTheme": "Default Dark+",
     "workbench.editor.enablePreview": false,
-    "workbench.iconTheme": "vs-minimal",
+    "workbench.iconTheme": "material-icon-theme",
     "workbench.productIconTheme": "fluent-icons",
     "workbench.startupEditor": "newUntitledFile"
 }

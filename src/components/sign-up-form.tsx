@@ -1,3 +1,5 @@
+'use client'; // 👈 FIX 1: This component must be a Client Component
+
 import { useForm } from '@tanstack/react-form';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
@@ -10,7 +12,8 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 
-export default function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () => void }) {
+// FIX 2: Rename prop to 'onSwitchToSignInAction' to match what the parent passes
+export default function SignUpForm({ onSwitchToSignInAction }: { onSwitchToSignInAction: () => void }) {
     const router = useRouter();
     const { isPending } = authClient.useSession();
 
@@ -63,6 +66,7 @@ export default function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () 
                     form.handleSubmit();
                 }}
             >
+                {/* ... (Name field) ... */}
                 <div>
                     <form.Field name='name'>
                         {field => (
@@ -88,6 +92,7 @@ export default function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () 
                     </form.Field>
                 </div>
 
+                {/* ... (Email field) ... */}
                 <div>
                     <form.Field name='email'>
                         {field => (
@@ -114,6 +119,7 @@ export default function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () 
                     </form.Field>
                 </div>
 
+                {/* ... (Password field) ... */}
                 <div>
                     <form.Field name='password'>
                         {field => (
@@ -140,6 +146,7 @@ export default function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () 
                     </form.Field>
                 </div>
 
+                {/* ... (Submit button) ... */}
                 <form.Subscribe>
                     {state => (
                         <Button
@@ -154,9 +161,10 @@ export default function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () 
             </form>
 
             <div className='mt-4 text-center'>
+                {/* FIX 3: Use the new prop 'onSwitchToSignInAction' in the click handler */}
                 <Button
                     className='text-indigo-600 hover:text-indigo-800'
-                    onClick={onSwitchToSignIn}
+                    onClick={onSwitchToSignInAction}
                     variant='link'
                 >
                     Already have an account? Sign In

@@ -1,26 +1,26 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-import SignUpForm from './form';
+import SignInForm from './form';
 
 export const metadata: Metadata = {
-    title: 'Sign Up'
+    title: 'Sign In'
 };
 
-export default function SignUpPage() {
+export default function SignInPage() {
     return (
-        <div className='flex min-h-screen w-full flex-col items-center justify-center p-10'>
+        <div className='flex min-h-screen w-full flex-col items-center justify-center'>
             <div className='flex w-full flex-col rounded-2xl border border-foreground/10 px-8 py-5 md:w-96'>
-                <h1>Sign Up</h1>
-                <p>Example sign up page using Better Auth</p>
-                <SignUpForm />
+                <h1>Sign In</h1>
+                <p>Example sign in page using Better Auth</p>
+                <SignInForm />
                 <div className='flex items-center justify-center gap-2'>
-                    <small>Already have account?</small>
+                    <small>Don&apos;t have account?</small>
                     <Link
                         className='font-bold text-sm leading-none'
-                        href={'/signin'}
+                        href={'/signup'}
                     >
-                        Sign In
+                        Sign Up
                     </Link>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { nextCookies } from 'better-auth/next-js';
-import { admin as adminPlugin, anonymous, multiSession, twoFactor } from 'better-auth/plugins';
+import { admin as adminPlugin, anonymous, multiSession, twoFactor, username } from 'better-auth/plugins';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 
@@ -10,6 +10,7 @@ import { generateId } from '@/lib/id';
 import { db } from '@/server/db';
 
 import { ac, allRoles } from './permissions';
+import { restrictedUsernames } from './usernames';
 
 const ONE_DAY_IN_SECONDS = 60 * 60 * 24;
 
@@ -39,6 +40,12 @@ export const auth = betterAuth({
     },
 
     plugins: [
+        username({
+            minUsernameLength: 4,
+            maxUsernameLength: 10,
+            usernameValidator: value => !restrictedUsernames.includes(value),
+            usernameNormalization: value => value.toLowerCase()
+        }),
         adminPlugin({ ac, roles: allRoles }),
         multiSession(),
         twoFactor(),
@@ -107,7 +114,12 @@ export const auth = betterAuth({
     user: {
         additionalFields: {
             role: { type: 'string', input: false },
-            password: { type: 'string', input: true }
+            password: { type: 'string', input: true },
+            gender: {
+                type: 'boolean',
+                required: true,
+                input: true
+            }
         },
         changeEmail: { enabled: true },
         deleteUser: { enabled: true }
@@ -133,6 +145,7 @@ export const auth = betterAuth({
                     const userId = await generateId();
                     await db.user.create({
                         data: {
+                            gender: true,
                             name: user.name,
                             email: user.email,
                             emailVerified: true,

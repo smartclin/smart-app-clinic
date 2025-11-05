@@ -1,3 +1,4 @@
+
 generator client {
   provider        = "prisma-client-js"
   moduleFormat    = "esm"
@@ -36,6 +37,9 @@ model User {
   twofactors       TwoFactor[]
   Clinic           Clinic[]
   ClinicMember     ClinicMember[]
+
+  isAnonymous Boolean?
+  gender      Boolean
 
   @@unique([email])
   @@unique([username])
