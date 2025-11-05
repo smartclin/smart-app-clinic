@@ -114,12 +114,7 @@ export const auth = betterAuth({
     user: {
         additionalFields: {
             role: { type: 'string', input: false },
-            password: { type: 'string', input: true },
-            gender: {
-                type: 'boolean',
-                required: true,
-                input: true
-            }
+            password: { type: 'string', input: true }
         },
         changeEmail: { enabled: true },
         deleteUser: { enabled: true }

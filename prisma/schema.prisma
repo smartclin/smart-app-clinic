@@ -39,7 +39,7 @@ model User {
   ClinicMember     ClinicMember[]
 
   isAnonymous Boolean?
-  gender      Boolean
+
 
   @@unique([email])
   @@unique([username])

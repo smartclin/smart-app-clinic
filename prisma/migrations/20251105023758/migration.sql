@@ -50,7 +50,7 @@ CREATE TABLE "user" (
     "email" TEXT NOT NULL,
     "emailVerified" BOOLEAN NOT NULL,
     "image" TEXT,
-    "createdAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "username" TEXT,
     "displayUsername" TEXT,
@@ -60,6 +60,7 @@ CREATE TABLE "user" (
     "banExpires" TIMESTAMP(3),
     "twoFactorEnabled" BOOLEAN,
     "password" TEXT,
+    "isAnonymous" BOOLEAN,
 
     CONSTRAINT "user_pkey" PRIMARY KEY ("_id")
 );
@@ -98,7 +99,7 @@ CREATE TABLE "session" (
     "_id" TEXT NOT NULL,
     "expiresAt" TIMESTAMP(3) NOT NULL,
     "token" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "ipAddress" TEXT,
     "userAgent" TEXT,
@@ -121,7 +122,7 @@ CREATE TABLE "account" (
     "refreshTokenExpiresAt" TIMESTAMP(3),
     "scope" TEXT,
     "password" TEXT,
-    "createdAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "account_pkey" PRIMARY KEY ("_id")
