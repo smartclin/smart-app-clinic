@@ -1,6 +1,5 @@
 // no "use client" here
 import type { Gender } from '@prisma/client';
-import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 
 import { getSession } from '@/server/auth/utils';
@@ -19,9 +18,7 @@ export default async function AppointmentsPage(props: {
     const userId = session?.user.id;
     const userRole = session?.user.role?.toUpperCase();
 
-    if (!userId) redirect('/signin');
-
-    const isPatient = await checkRole(session, 'PATIENT');
+    const isPatient = checkRole(session, 'PATIENT');
 
     const safePage = Math.max(Number(searchParams?.['p'] ?? 1), 1);
     const searchQuery = typeof searchParams?.['q'] === 'string' ? searchParams['q'] : '';

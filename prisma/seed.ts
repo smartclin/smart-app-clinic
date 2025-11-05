@@ -338,8 +338,6 @@ async function createPatients(patientUsers: User[], _clinics: Clinic[]) {
 
     return patients;
 }
-// Define the type for DoctorCreateInput from Prisma
-type DoctorUser = Prisma.DoctorCreateInput;
 
 async function createDoctors(doctorUsers: User[], _clinics: Clinic[]) {
     console.log('👨‍⚕️ Creating doctors...');
@@ -354,14 +352,21 @@ async function createDoctors(doctorUsers: User[], _clinics: Clinic[]) {
         'Pediatric Allergy',
         'Pediatric Endocrinology'
     ];
-
     for (let i = 0; i < doctorUsers.length; i++) {
         const user = doctorUsers[i];
 
-        // Make sure required fields are populated (like specialization and user)
-        const doctorData: DoctorUser = {
+        // FIX 1: Removed the incorrect 'DoctorUser' type annotation.
+        // We can optionally use Prisma.DoctorCreateInput for type safety.
+        const doctorData: Prisma.DoctorCreateInput = {
             id: user.id ?? faker.string.uuid(),
-            userId: user.id,
+
+            // FIX 2: Use the Prisma 'connect' syntax for the relation.
+            // This tells Prisma to link this new Doctor to the existing User.
+            user: {
+                connect: {
+                    id: user.id
+                }
+            },
             email: user.email ?? faker.internet.email(),
             name: user.name ?? faker.person.fullName(),
             specialization: faker.helpers.arrayElement(specializations),

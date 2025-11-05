@@ -1,39 +1,11 @@
 {
-    // ================================
-    // Performance & Memory Optimization
-    // ================================
-    "typescript.tsserver.maxTsServerMemory": 4096,
-    "typescript.tsserver.watchOptions": {
-        "watchFile": "useFsEvents",
-        "watchDirectory": "useFsEvents",
-        "fallbackPolling": "dynamicPriorityPolling"
+    "[css]": {
+        "editor.defaultFormatter": "biomejs.biome"
     },
-    "files.watcherExclude": {
-        "**/.git/objects/**": true,
-        "**/.git/subtree-cache/**": true,
-        "**/node_modules/**": true,
-        "**/.next/**": true,
-        "**/dist/**": true,
-        "**/.turbo/**": true,
-        "**/coverage/**": true
-    },
-    "search.followSymlinks": false,
-    "editor.largeFileOptimizations": true,
-
-    // ================================
-    // Formatter & Linter Configuration
-    // ================================
-    "editor.defaultFormatter": "biomejs.biome",
     "[javascript]": {
         "editor.defaultFormatter": "biomejs.biome"
     },
-    "[typescript]": {
-        "editor.defaultFormatter": "biomejs.biome"
-    },
     "[javascriptreact]": {
-        "editor.defaultFormatter": "biomejs.biome"
-    },
-    "[typescriptreact]": {
         "editor.defaultFormatter": "biomejs.biome"
     },
     "[json]": {
@@ -42,93 +14,88 @@
     "[jsonc]": {
         "editor.defaultFormatter": "biomejs.biome"
     },
-    "[css]": {
-        "editor.defaultFormatter": "biomejs.biome"
+    "[prisma]": {
+        "editor.defaultFormatter": "Prisma.prisma"
     },
     "[scss]": {
         "editor.defaultFormatter": "biomejs.biome"
     },
-    "[prisma]": {
-        "editor.defaultFormatter": "Prisma.prisma"
+    "[typescript]": {
+        "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "biomejs.biome"
     },
     "biome.configurationPath": "./biome.json",
     "biome.enabled": true,
     "biome.suggestInstallingGlobally": false,
-
+    "breadcrumbs.enabled": true,
     // ================================
-    // TypeScript & Next.js Optimization
+    // Extensions & Language Specific
     // ================================
-    "typescript.tsdk": "node_modules/typescript/lib",
-    "typescript.enablePromptUseWorkspaceTsdk": true,
-    "typescript.updateImportsOnFileMove.enabled": "always",
-    "typescript.preferences.includePackageJsonAutoImports": "auto",
-    "typescript.suggest.autoImports": true,
-    "typescript.preferences.quoteStyle": "single",
-    "typescript.inlayHints.parameterNames.enabled": "all",
-    "typescript.inlayHints.variableTypes.enabled": true,
-    "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
-
+    "css.validate": false,
+    "debug.internalConsoleOptions": "openOnSessionStart",
+    "debug.onTaskErrors": "showErrors",
+    "editor.bracketPairColorization.enabled": true,
+    "editor.codeActionsOnSave": {
+        "source.addMissingImports.ts": "explicit",
+        "source.fixAll.biome": "explicit",
+        "source.organizeImports": "always",
+        "source.organizeImports.biome": "explicit",
+        "source.removeUnused.ts": "explicit",
+        "source.removeUnusedImports": "explicit",
+        "source.sort.json": "explicit"
+    },
+    "editor.codeLens": true,
+    "editor.cursorBlinking": "smooth",
+    "editor.cursorSmoothCaretAnimation": "on",
+    // ================================
+    // Formatter & Linter Configuration
+    // ================================
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.detectIndentation": true,
+    "editor.folding": true,
+    "editor.foldingHighlight": true,
+    "editor.formatOnPaste": false,
     // ================================
     // Format & Save Actions
     // ================================
     "editor.formatOnSave": true,
-    "editor.formatOnPaste": false,
     "editor.formatOnType": false,
-    "editor.codeActionsOnSave": {
-        "source.organizeImports": "always",
-        "source.removeUnused.ts": "explicit",
-        "source.sort.json": "explicit",
-        "source.fixAll.biome": "explicit",
-        "source.organizeImports.biome": "explicit",
-        "source.addMissingImports.ts": "explicit",
-        "source.removeUnusedImports": "explicit"
-    },
-    "editor.trimAutoWhitespace": true,
-    "files.trimTrailingWhitespace": true,
-    "files.insertFinalNewline": true,
-    "files.trimFinalNewlines": true,
-
-    // ================================
-    // Editor & UX Configuration
-    // ================================
-    "editor.tabSize": 2,
+    "editor.guides.bracketPairs": true,
+    "editor.hover.enabled": true,
+    "editor.inlineSuggest.enabled": true,
+    "editor.inlineSuggest.suppressSuggestions": false,
     "editor.insertSpaces": true,
-    "editor.detectIndentation": true,
-    "editor.wordWrap": "off",
+    "editor.largeFileOptimizations": true,
+    "editor.linkedEditing": true,
     "editor.minimap.enabled": true,
     "editor.minimap.scale": 1,
-    "editor.cursorSmoothCaretAnimation": "on",
-    "editor.cursorBlinking": "smooth",
-    "editor.renderWhitespace": "boundary",
-    "editor.renderControlCharacters": false,
-    "editor.showUnused": true,
-    "editor.codeLens": true,
-    "editor.inlineSuggest.enabled": true,
-    "editor.bracketPairColorization.enabled": true,
-    "editor.guides.bracketPairs": true,
-    "editor.folding": true,
-    "editor.foldingHighlight": true,
-    "editor.linkedEditing": true,
-    "editor.smoothScrolling": true,
-
+    "editor.parameterHints.enabled": true,
     // ================================
     // Suggestions & IntelliSense
     // ================================
     "editor.quickSuggestions": {
-        "other": true,
         "comments": false,
+        "other": true,
         "strings": true
     },
-    "editor.suggestSelection": "recentlyUsed",
-    "editor.suggest.showIcons": true,
-    "editor.suggest.localityBonus": true,
-    "editor.parameterHints.enabled": true,
-    "editor.hover.enabled": true,
-    "editor.wordBasedSuggestions": "matchingDocuments",
+    "editor.renderControlCharacters": false,
+    "editor.renderWhitespace": "boundary",
+    "editor.showUnused": true,
+    "editor.smoothScrolling": true,
     "editor.snippetSuggestions": "inline",
-    "editor.inlineSuggest.suppressSuggestions": false,
+    "editor.suggest.localityBonus": true,
+    "editor.suggest.showIcons": true,
     "editor.suggest.snippetsPreventQuickSuggestions": false,
-
+    "editor.suggestSelection": "recentlyUsed",
+    // ================================
+    // Editor & UX Configuration
+    // ================================
+    "editor.tabSize": 2,
+    "editor.trimAutoWhitespace": true,
+    "editor.wordBasedSuggestions": "matchingDocuments",
+    "editor.wordWrap": "off",
     // ================================
     // Emmet & HTML/React
     // ================================
@@ -137,91 +104,112 @@
         "typescript": "typescriptreact",
         "typescriptreact": "html"
     },
-    "emmet.triggerExpansionOnTab": true,
     "emmet.showExpandedAbbreviation": "inMarkupAndStylesheetFilesOnly",
-
+    "emmet.triggerExpansionOnTab": true,
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.openEditors.visible": 5,
+    "files.associations": {
+        "*.css": "tailwindcss"
+    },
+    "files.autoSave": "onFocusChange",
     // ================================
     // Files & Excludes
     // ================================
     "files.exclude": {
-        "**/node_modules": true,
-        "**/.git": true,
         "**/.DS_Store": true,
-        "**/.turbo": true,
-        "**/generated": true,
-        "**/migrations": true,
-        "**/dist": true,
+        "**/.git": true,
         "**/.next": true,
-        "**/coverage": true,
-        "**/build": true
-    },
-    "search.exclude": {
-        "**/node_modules": true,
-        "**/.next": true,
-        "**/dist": true,
-        "**/generated": true,
-        "**/migrations": true,
         "**/.turbo": true,
-        "**/coverage": true,
         "**/build": true,
-        "**/yarn.lock": true,
-        "**/package-lock.json": true
+        "**/coverage": true,
+        "**/dist": true,
+        "**/generated": true,
+        "**/migrations": true,
+        "**/node_modules": true
     },
-    "files.autoSave": "onFocusChange",
-    "files.associations": {
-        "*.css": "tailwindcss"
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/.next/**": true,
+        "**/.turbo/**": true,
+        "**/coverage/**": true,
+        "**/dist/**": true,
+        "**/node_modules/**": true
     },
-
-    "prisma.enableDiagnostics": true,
-    "prisma.enableCodeLens": false,
+    "git.autofetch": true,
+    "git.autofetchPeriod": 180,
+    "git.confirmSync": false,
     // ================================
     // Git Integration
     // ================================
     "git.enableSmartCommit": true,
-    "git.autofetch": true,
-    "git.autofetchPeriod": 180,
-    "git.confirmSync": false,
     "git.openRepositoryInParentFolders": "always",
-
-    // ================================
-    // Extensions & Language Specific
-    // ================================
-    "css.validate": false,
     "less.validate": false,
+    "prisma.enableCodeLens": false,
+    "prisma.enableDiagnostics": true,
     "scss.validate": false,
-    "tailwindCSS.includeLanguages": {
-        "typescript": "javascript",
-        "typescriptreact": "javascript"
+    "search.exclude": {
+        "**/.next": true,
+        "**/.turbo": true,
+        "**/build": true,
+        "**/coverage": true,
+        "**/dist": true,
+        "**/generated": true,
+        "**/migrations": true,
+        "**/node_modules": true,
+        "**/package-lock.json": true,
+        "**/yarn.lock": true
     },
+    "search.followSymlinks": false,
     "tailwindCSS.experimental.classRegex": [
         ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
         ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
     ],
-
-    // ================================
-    // Next.js Specific
-    // ================================
-    "typescript.suggest.completeFunctionCalls": true,
-
-    // ================================
-    // Accessibility & Workbench
-    // ================================
-    "workbench.colorTheme": "Default Dark+",
-    "workbench.iconTheme": "vs-minimal",
-    "workbench.editor.enablePreview": false,
-    "workbench.startupEditor": "newUntitledFile",
-    "workbench.productIconTheme": "fluent-icons",
-    "window.zoomLevel": 0,
-    "breadcrumbs.enabled": true,
-    "explorer.openEditors.visible": 5,
-    "explorer.confirmDelete": false,
-    "explorer.confirmDragAndDrop": false,
-
+    "tailwindCSS.includeLanguages": {
+        "typescript": "javascript",
+        "typescriptreact": "javascript"
+    },
+    "terminal.integrated.cursorBlinking": true,
     // ================================
     // Terminal & Debugging
     // ================================
     "terminal.integrated.scrollback": 10000,
-    "terminal.integrated.cursorBlinking": true,
-    "debug.onTaskErrors": "showErrors",
-    "debug.internalConsoleOptions": "openOnSessionStart"
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+    "typescript.inlayHints.parameterNames.enabled": "all",
+    "typescript.inlayHints.variableTypes.enabled": true,
+    "typescript.preferences.includePackageJsonAutoImports": "auto",
+    "typescript.preferences.quoteStyle": "single",
+    "typescript.suggest.autoImports": true,
+    // ================================
+    // Next.js Specific
+    // ================================
+    "typescript.suggest.completeFunctionCalls": true,
+    // ================================
+    // TypeScript & Next.js Optimization
+    // ================================
+    "typescript.tsdk": "node_modules/typescript/lib",
+    // ================================
+    // Performance & Memory Optimization
+    // ================================
+    "typescript.tsserver.maxTsServerMemory": 4096,
+    "typescript.tsserver.watchOptions": {
+        "fallbackPolling": "dynamicPriorityPolling",
+        "watchDirectory": "useFsEvents",
+        "watchFile": "useFsEvents"
+    },
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "window.zoomLevel": 0,
+    // ================================
+    // Accessibility & Workbench
+    // ================================
+    "workbench.colorTheme": "Default Dark+",
+    "workbench.editor.enablePreview": false,
+    "workbench.iconTheme": "vs-minimal",
+    "workbench.productIconTheme": "fluent-icons",
+    "workbench.startupEditor": "newUntitledFile"
 }

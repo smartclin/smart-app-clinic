@@ -11,7 +11,6 @@ import { ProfileImage } from '@/components/profile-image';
 import SearchInput from '@/components/search-input';
 import { Table } from '@/components/tables/table';
 import { ViewAppointment } from '@/components/view-appointment';
-import { HydrateClient } from '@/trpc/server';
 import { type AppointmentStatus, AppointmentStatus as LocalAppointmentStatus } from '@/types/data-types';
 import { DATA_LIMIT } from '@/utils/seetings';
 
@@ -144,40 +143,38 @@ export default function AppointmentsClient({ data, totalPages, totalRecord, curr
     };
 
     return (
-        <HydrateClient>
-            <div className='rounded-xl bg-white p-2 md:p-4 2xl:p-6'>
-                <div className='flex items-center justify-between'>
-                    <div className='hidden items-center gap-1 lg:flex'>
-                        <BriefcaseBusinessIcon
-                            className='text-gray-500'
-                            size={20}
-                        />
-                        <p className='font-semibold text-2xl'>{totalRecord}</p>
-                        <span className='text-gray-600 text-sm xl:text-base'>total appointments</span>
-                    </div>
-
-                    <div className='flex w-full items-center justify-between gap-2 lg:w-fit lg:justify-start'>
-                        <SearchInput />
-                        {isPatient && <AppointmentContainer id={userId ?? 'N/A'} />}
-                    </div>
+        <div className='rounded-xl bg-white p-2 md:p-4 2xl:p-6'>
+            <div className='flex items-center justify-between'>
+                <div className='hidden items-center gap-1 lg:flex'>
+                    <BriefcaseBusinessIcon
+                        className='text-gray-500'
+                        size={20}
+                    />
+                    <p className='font-semibold text-2xl'>{totalRecord}</p>
+                    <span className='text-gray-600 text-sm xl:text-base'>total appointments</span>
                 </div>
 
-                <div className='mt-6'>
-                    <Table
-                        columns={columns}
-                        data={data}
-                        renderRow={renderItem}
-                    />
-                    {data.length > 0 && (
-                        <Pagination
-                            currentPage={currentPage}
-                            limit={DATA_LIMIT}
-                            totalPages={totalPages}
-                            totalRecords={totalRecord}
-                        />
-                    )}
+                <div className='flex w-full items-center justify-between gap-2 lg:w-fit lg:justify-start'>
+                    <SearchInput />
+                    {isPatient && <AppointmentContainer id={userId ?? 'N/A'} />}
                 </div>
             </div>
-        </HydrateClient>
+
+            <div className='mt-6'>
+                <Table
+                    columns={columns}
+                    data={data}
+                    renderRow={renderItem}
+                />
+                {data.length > 0 && (
+                    <Pagination
+                        currentPage={currentPage}
+                        limit={DATA_LIMIT}
+                        totalPages={totalPages}
+                        totalRecords={totalRecord}
+                    />
+                )}
+            </div>
+        </div>
     );
 }
